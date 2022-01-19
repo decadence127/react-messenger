@@ -1,0 +1,41 @@
+@import "../../index.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0em 1em 0em 1em;
+  align-items: center;
+  min-height: 3.5em;
+  width: calc(100% - 12em);
+  margin: 0 5em 0 5em;
+  h1 {
+    margin: 0;
+    line-height: 2em;
+    font-size: 2.5rem;
+    font-weight: 400;
+  }
+  div {
+    display: flex;
+  }
+  .imgContainer {
+    width: 12rem;
+    height: 8rem;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+  }
+  button {
+    @include hover-fade;
+    background-color: $light_grey;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $dark_gray;
+    margin: 1em;
+    width: 4em;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
