@@ -2,9 +2,7 @@ import React from 'react';
 import styles from './Searchbar.module.scss'
 const Searchbar = () => {
   return (
-    <>
-      <input className={styles.searchBar} placeholder='Search...' />
-    </>
+    <input className={styles.searchBar} placeholder='Search...' />
   );
 };
 

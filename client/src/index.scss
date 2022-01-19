@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Dongle&family=Open+Sans&display=swap");
 
 $light_grey: #f5f5f6;
-$light_blue: #becad6;
 $dark_grayish_blue: #9c9ea2;
 $dark_violet: #141217;
 $grey: #575861;
@@ -9,6 +8,7 @@ $dark_gray: #3e3e40;
 $grayish_blue: #b6aed4;
 $coral: #b56a77;
 $deep_blue: #3e44cb;
+$light_blue: #a1c3fc;
 $aquamarine: #76cfe3;
 $font: "Dongle", sans-serif;
 
@@ -24,8 +24,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-@mixin rounded-border {
-  border-radius: 4px;
+@mixin rounded-border($radius: 4px) {
+  border-radius: $radius;
   border: 1px solid $light_blue;
 }
 @mixin hover-fade($opacity: 0.6) {

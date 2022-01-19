@@ -1,0 +1,15 @@
+@mixin image-container($width: 0, $height: 0) {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  @if $width != 0 {
+    max-width: $width;
+  } @else if $height != 0 {
+    max-height: $height;
+  }
+}
+
+.imageContainer {
+  @include image-container();
+}
