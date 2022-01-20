@@ -18,7 +18,7 @@
     display: flex;
   }
   .imgContainer {
-    width: 12rem;
+    min-width: 12rem;
     height: 8rem;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -37,5 +37,21 @@
     &:hover {
       cursor: pointer;
     }
+  }
+  @media screen and (max-width: 1100px) {
+    .imgContainer {
+      min-width: 0;
+    }
+    & button {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 740px) {
+    justify-content: center;
+  }
+  @media screen and (max-width: 500px) {
+    justify-content: center;
+    padding: 0;
+    width: calc(100% - 10em);
   }
 }

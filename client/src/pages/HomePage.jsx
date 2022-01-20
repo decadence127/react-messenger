@@ -4,12 +4,12 @@ import PaperCard from '../Components/PaperCard/PaperCard';
 import mobilePhone from '../assets/clip-chatting.png'
 import chaticon from '../assets/chaticon.png'
 import SignUpComponent from '../Components/SignUpComponent/SignUpComponent';
-
+import styles from './pageStyles/HomePage.module.scss'
 
 const HomePage = () => {
 
   return (
-    <article style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <article className={styles.homePageArticle}>
       <PaperCard styleName="signUpCard">
         <SignUpComponent />
       </PaperCard>
