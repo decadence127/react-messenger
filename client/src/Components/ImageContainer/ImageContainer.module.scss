@@ -4,14 +4,16 @@
   user-select: none;
   pointer-events: none;
   @if $width != 0 {
-    min-width: $width;
+    max-width: $width;
   } @else if $height != 0 {
-    min-height: $height;
+    max-height: $height;
   }
 }
 
 .imageContainer {
   @include image-container();
+  display: flex;
+  align-items: flex-end;
   @media screen and (max-width: 1000px) {
     & img {
       max-width: 500px;

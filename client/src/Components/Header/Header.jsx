@@ -12,12 +12,12 @@ const Header = () => {
     <>
       <header className={styles.header}>
         <div className={styles.imgContainer} onClick={e => history.push('/as')}>
-          <img src={logo} onClick={e => { history.push('/') }} alt="React messenger" />
+          <img src={logo} alt="React messenger" />
         </div>
         <div>
           <Searchbar />
           <button onClick={e => { history.push(HOME_ROUTE) }}> Home</button>
-          <button onClick={e => { history.push(AUTH_ROUTE) }}> Sign In</button>
+          <button onClick={e => { history.push(AUTH_ROUTE) }}> Sign Up</button>
         </div>
       </header>
     </>

@@ -1,0 +1,32 @@
+@import "../index.scss";
+
+.buttonContainer {
+  min-width: 19em;
+  margin-right: 36px;
+  display: flex;
+  justify-content: space-between;
+  & > a {
+    line-height: 3em;
+    font-size: 1.125rem;
+  }
+  & > button {
+    @include rounded-border(8px);
+    margin-left: 10px;
+    margin-top: 10px;
+    justify-self: start;
+    min-height: 45px;
+    min-width: 8em;
+    color: $dark_violet;
+    font-weight: 600;
+    background-color: $deep_blue;
+    border: none;
+    &:hover {
+      @include hover-fade(0.9);
+      cursor: pointer;
+    }
+  }
+  @media screen and(max-width: 400px) {
+    min-width: 0;
+    flex-flow: wrap column;
+  }
+}
