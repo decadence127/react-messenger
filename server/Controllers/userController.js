@@ -28,11 +28,29 @@ class UserController {
   }
   async login(req, res, next) {
     try {
-    } catch (error) {}
+      const { email, password } = req.body;
+      const userData = await userService.login(email, password);
+
+      res.cookie("refreshToken", userData.refreshToken, {
+        httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      });
+      res.status(201).json(userData);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
   }
   async logout(req, res, next) {
     try {
-    } catch (error) {}
+      console.log(req.headers);
+      const { refreshToken } = req.cookies;
+      await userService.removeToken(refreshToken);
+      res.clearCookie("refreshToken");
+      return res.status(200);
+    } catch (error) {
+      next(error);
+    }
   }
   async validate(req, res, next) {
     try {

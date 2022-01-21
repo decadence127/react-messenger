@@ -6,7 +6,7 @@ const uuid = require("uuid");
 
 class UserService {
   async registration(email, password, name, age) {
-    const candidate = await UserModel.findOne({ email });
+    const candidate = await UserModel.findOne({ userEmail: email });
     if (candidate) {
       throw ApiError.BadRequest(`User with email: ${email} already exists]`);
     }
@@ -29,6 +29,30 @@ class UserService {
     const tokenData = tokenService.generateTokens({ ...userData });
     await tokenService.saveToken(userData.userId, tokenData.refreshToken);
 
+    return {
+      ...tokenData,
+      user: userData,
+    };
+  }
+  async login(email, password) {
+    const user = await UserModel.findOne({ userEmail: email });
+    console.log(user);
+    if (!user) {
+      throw ApiError.BadRequest("User with such email does not exist.");
+    }
+    const isPasswordEqual = await bcrypt.compare(password, user.userPassword);
+    if (!isPasswordEqual) {
+      throw ApiError.BadRequest("Password is incorrect.");
+    }
+    const userData = {
+      userId: user._id,
+      userName: user.userName,
+      userAge: user.userAge,
+      userEmail: user.userEmail,
+    };
+
+    const tokenData = tokenService.generateTokens({ ...userData });
+    await tokenService.saveToken(userData.userId, tokenData.refreshToken);
     return {
       ...tokenData,
       user: userData,
