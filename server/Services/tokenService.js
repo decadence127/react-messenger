@@ -35,5 +35,54 @@ class TokenService {
       throw e;
     }
   }
+  async findToken(refreshToken) {
+    try {
+      tokenModel.findOne({ refreshToken });
+    } catch (e) {
+      throw e;
+    }
+  }
+  validateAccessToken(token) {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET_ACCESS_TOKEN);
+    } catch (e) {
+      return null;
+    }
+  }
+  validateRefreshToken(token) {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET_REFRESH_TOKEN);
+    } catch (e) {
+      return null;
+    }
+  }
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
+    }
+    const userData = this.validateRefreshToken(refreshToken);
+    const token = await this.findToken(refreshToken);
+    if (!userData || !token) {
+      throw ApiError.UnauthorizedError();
+    }
+    const user = UserModel.findById(userData.userId);
+    const userTransferObject = {
+      userId: user._id,
+      userName: user.userName,
+      userAge: user.userAge,
+      userEmail: user.userEmail,
+    };
+
+    const tokenData = tokenService.generateTokens({ ...userTransferObject });
+    await tokenService.saveToken(
+      userTransferObject.userId,
+      tokenData.refreshToken
+    );
+    return {
+      ...tokenData,
+      user: userTransferObject,
+    };
+  }
 }
+
 module.exports = new TokenService();

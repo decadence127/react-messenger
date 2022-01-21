@@ -3,7 +3,7 @@ const ApiError = require("../ExceptionHandler/ApiError");
 const bcrypt = require("bcrypt");
 const tokenService = require("../Services/tokenService");
 const uuid = require("uuid");
-
+const jwt = require("jsonwebtoken");
 class UserService {
   async registration(email, password, name, age) {
     const candidate = await UserModel.findOne({ userEmail: email });
@@ -34,6 +34,7 @@ class UserService {
       user: userData,
     };
   }
+
   async login(email, password) {
     const user = await UserModel.findOne({ userEmail: email });
     console.log(user);

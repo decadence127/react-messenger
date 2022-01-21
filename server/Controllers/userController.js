@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const ApiError = require("../ExceptionHandler/ApiError");
 const userService = require("../Services/userService");
-
+const tokenService = require("../Services/tokenService");
 class UserController {
   async registration(req, res, next) {
     try {
@@ -43,22 +43,40 @@ class UserController {
   }
   async logout(req, res, next) {
     try {
-      console.log(req.headers);
       const { refreshToken } = req.cookies;
-      await userService.removeToken(refreshToken);
+      await tokenService.removeToken(refreshToken);
       res.clearCookie("refreshToken");
-      return res.status(200);
+      return res.status(200).json({ message: "You have been logged out" });
     } catch (error) {
       next(error);
     }
   }
   async validate(req, res, next) {
     try {
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
+  }
+  async refresh(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const userData = await tokenService.refresh(refreshToken);
+
+      res.cookie("refreshToken", userData.refreshToken, {
+        httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      });
+      res.status(201).json(userData);
+    } catch (error) {
+      next(error);
+    }
   }
   async getUsers(req, res, next) {
     try {
-    } catch (error) {}
+      res.status(200).json({ users: ["jack", "john"] });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 module.exports = new UserController();
