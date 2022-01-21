@@ -37,7 +37,7 @@ class TokenService {
   }
   async findToken(refreshToken) {
     try {
-      tokenModel.findOne({ refreshToken });
+      return tokenModel.findOne({ refreshToken });
     } catch (e) {
       throw e;
     }
@@ -65,19 +65,16 @@ class TokenService {
     if (!userData || !token) {
       throw ApiError.UnauthorizedError();
     }
-    const user = UserModel.findById(userData.userId);
+    const user = await UserModel.findById(userData.userId);
     const userTransferObject = {
       userId: user._id,
       userName: user.userName,
       userAge: user.userAge,
       userEmail: user.userEmail,
     };
-
-    const tokenData = tokenService.generateTokens({ ...userTransferObject });
-    await tokenService.saveToken(
-      userTransferObject.userId,
-      tokenData.refreshToken
-    );
+    console.log(userTransferObject);
+    const tokenData = this.generateTokens({ ...userTransferObject });
+    await this.saveToken(userTransferObject.userId, tokenData.refreshToken);
     return {
       ...tokenData,
       user: userTransferObject,
