@@ -2,9 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userData: {
-    userName: "",
-    userEmail: "",
-    userAge: 0,
+    refreshToken: "",
+    accessToken: "",
+    user: {
+      userName: "",
+      userEmail: "",
+      userAge: 0,
+    },
   },
   isLoading: false,
   error: [],
