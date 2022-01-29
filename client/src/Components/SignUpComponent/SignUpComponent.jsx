@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SignUpComponent.module.scss';
 import commonStyles from '../../CommonStyles/CommonStyles.module.scss'
-
+import { Link } from 'react-router-dom';
 const SignUpComponent = () => {
 
 
@@ -19,7 +19,7 @@ const SignUpComponent = () => {
         <input type="text" placeholder='Name' required={true} />
         <div className={commonStyles.buttonContainer}>
           <button type="submit" >Sign Up</button>
-          <a href="/">Already have an account? Sign In</a>
+          <Link to="/">Already have an account? Sign In</Link>
         </div>
       </form>
     </>
