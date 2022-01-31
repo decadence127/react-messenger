@@ -72,7 +72,6 @@ class TokenService {
       userAge: user.userAge,
       userEmail: user.userEmail,
     };
-    console.log(userTransferObject);
     const tokenData = this.generateTokens({ ...userTransferObject });
     await this.saveToken(userTransferObject.userId, tokenData.refreshToken);
     return {

@@ -6,7 +6,7 @@ class ApiError extends Error {
   }
   static BadRequest(message, errors = []) {
     return new ApiError(
-      404,
+      400,
       message || "Content you have requested does not exist",
       errors
     );

@@ -22,7 +22,6 @@ class UserController {
       });
       res.status(201).json(userData);
     } catch (error) {
-      console.error(error);
       next(error);
     }
   }
@@ -35,9 +34,8 @@ class UserController {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
       });
-      res.status(201).json(userData);
+      return res.status(201).json(userData);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -73,7 +71,17 @@ class UserController {
   }
   async getUsers(req, res, next) {
     try {
-      res.status(200).json({ users: ["jack", "john"] });
+      const usersData = await userService.getUsers();
+      res.status(200).json(usersData);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getCertainUser(req, res, next) {
+    try {
+      const { id } = req.body;
+      const userData = await userService.getCertainUser(id);
+      return res.status(200).json(userData);
     } catch (error) {
       next(error);
     }

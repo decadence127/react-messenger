@@ -1,14 +1,20 @@
+@import "../../index.scss";
+
 .success {
+  @include rounded-border();
   min-width: 200px;
   min-height: 50px;
   text-align: center;
+  line-height: 50px;
   border: 1px solid green;
   background-color: greenyellow;
 }
 .error {
+  @include rounded-border();
   min-width: 200px;
   min-height: 50px;
   text-align: center;
+  line-height: 50px;
   border: 1px solid red;
   background-color: rgb(204, 70, 70);
 }

@@ -2,12 +2,15 @@ import React from 'react';
 import styles from './Header.module.scss'
 import logo from '../../assets/large_messengerr_0.png'
 import { useHistory } from 'react-router-dom'
-import { HOME_ROUTE, AUTH_ROUTE } from '../../routes/routeNames'
+import { HOME_ROUTE, AUTH_ROUTE, MESSAGES_ROUTE } from '../../routes/routeNames'
 import Searchbar from '../Searchbar/Searchbar';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUser } from '../../store/reducers/userSlice';
 
 const Header = () => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
+  const { userData } = useSelector(state => state.userReducer)
   return (
     <>
       <header className={styles.header}>
@@ -16,8 +19,14 @@ const Header = () => {
         </div>
         <div>
           <Searchbar />
-          <button onClick={e => { history.push(HOME_ROUTE) }}> Home</button>
-          <button onClick={e => { history.push(AUTH_ROUTE) }}> Sign Up</button>
+          {
+            userData.isAuth ? (
+              <><button onClick={e => { history.push(MESSAGES_ROUTE) }}> Messages</button>
+                <button onClick={e => { dispatch(logoutUser()) }}> Log out</button></>) : (<>
+                  <button onClick={e => { history.push(HOME_ROUTE) }}> Home</button>
+                  <button onClick={e => { history.push(AUTH_ROUTE) }}> Sign Up</button>
+                </>)
+          }
         </div>
       </header>
     </>

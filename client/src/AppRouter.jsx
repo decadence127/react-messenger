@@ -13,7 +13,7 @@ const AppRouter = () => {
         <Route key={path} path={path} component={component} exact />
       ))}
       {PublicRoutes.map(({ path, component }) => (<Route key={path} path={path} component={component} exact />))}
-      {userData.isAuth ? <Redirect from="*" to="/messages" /> : <Redirect to="/" />}
+      {userData.isAuth ? <Redirect to="/messages" /> : <Redirect to="/" />}
     </Switch>
   );
 };

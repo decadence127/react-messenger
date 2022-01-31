@@ -34,9 +34,24 @@ export const userSlice = createSlice({
       localStorage.setItem("token", state.userData.accessToken);
       state.isLoading = false;
     },
+    logoutSuccess(state) {
+      state.userData = initialState.userData;
+      localStorage.removeItem("token");
+      state.isLoading = false;
+    },
+    logoutFailed(state, action) {
+      state.errors.push(action.payload);
+      state.isLoading = false;
+    },
   },
 });
-export const { loginSuccess, startLoading, loginFailed } = userSlice.actions;
+export const {
+  loginSuccess,
+  startLoading,
+  loginFailed,
+  logoutFailed,
+  logoutSuccess,
+} = userSlice.actions;
 
 export const loginUser = (email, pass) => async (dispatch) => {
   dispatch(startLoading());
@@ -47,5 +62,15 @@ export const loginUser = (email, pass) => async (dispatch) => {
     dispatch(loginFailed(e.response.data.message));
   }
 };
-
+export const logoutUser = () => async (dispatch) => {
+  dispatch(startLoading());
+  try {
+    const response = await AuthService.logout();
+    console.log(response);
+    dispatch(logoutSuccess());
+  } catch (e) {
+    console.log(e);
+    dispatch(logoutFailed(e.response.data.message));
+  }
+};
 export default userSlice.reducer;

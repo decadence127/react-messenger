@@ -1,0 +1,36 @@
+@import "../../index.scss";
+.overlay {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  width: 100%;
+  height: calc(100% + 12em);
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.loader {
+  position: absolute;
+  top: calc(50% - 8em);
+  left: calc(50% - 4em);
+  width: 6em;
+  height: 6em;
+  border: 1.1em solid rgba($light_blue, 0.2);
+  border-left: 1.1em solid $deep_blue;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear;
+  transition: opacity 0.3s;
+}
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

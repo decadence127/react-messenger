@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ImageContainer from '../Components/ImageContainer/ImageContainer';
 import PaperCard from '../Components/PaperCard/PaperCard';
 import mobilePhone from '../assets/clip-chatting.png'
-import chaticon from '../assets/chaticon.png'
 import SignInComponent from '../Components/SignInComponent/SignInComponent';
 import styles from './pageStyles/HomePage.module.scss'
-
 
 
 const HomePage = () => {

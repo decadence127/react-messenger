@@ -59,5 +59,33 @@ class UserService {
       user: userData,
     };
   }
+  async getCertainUser(id) {
+    const user = await UserModel.findOne({ _id: id });
+    if (!user) {
+      throw ApiError.BadRequest("This user does not exist.");
+    }
+    const userData = {
+      userName: user.userName,
+      userAge: user.userAge,
+      userEmail: user.userEmail,
+    };
+    return {
+      user: userData,
+    };
+  }
+  async getUsers() {
+    const users = await UserModel.find();
+    const usersData = users.map((user) => {
+      return {
+        userId: user._id,
+        userName: user.userName,
+        userAge: user.userAge,
+        userEmail: user.userEmail,
+      };
+    });
+    return {
+      users: usersData,
+    };
+  }
 }
 module.exports = new UserService();
