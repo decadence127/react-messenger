@@ -22,7 +22,7 @@ const Header = () => {
           {
             userData.isAuth ? (
               <><button onClick={e => { history.push(MESSAGES_ROUTE) }}> Messages</button>
-                <button onClick={e => { dispatch(logoutUser()) }}> Log out</button></>) : (<>
+                <button onClick={e => { dispatch(logoutUser(userData.user.userId)) }}> Log out</button></>) : (<>
                   <button onClick={e => { history.push(HOME_ROUTE) }}> Home</button>
                   <button onClick={e => { history.push(AUTH_ROUTE) }}> Sign Up</button>
                 </>)

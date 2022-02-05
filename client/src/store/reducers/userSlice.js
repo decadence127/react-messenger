@@ -6,9 +6,12 @@ const initialState = {
     accessToken: "",
     isAuth: !!localStorage.getItem("token"),
     user: {
+      userId: "",
       userName: "",
       userEmail: "",
       userAge: 0,
+      isBanned: false,
+      isOnline: false,
     },
   },
   isLoading: false,

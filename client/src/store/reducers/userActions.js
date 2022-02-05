@@ -15,10 +15,8 @@ export const loginUser = (email, pass) => async (dispatch) => {
   dispatch(startLoading());
   try {
     const response = await AuthService.login(email, pass);
-    console.log(response);
     dispatch(loginSuccess(response.data));
   } catch (e) {
-    console.log(e);
     dispatch(loginFailed(e.response.data.message));
     setTimeout(function () {
       dispatch(cleanInfo());
@@ -26,10 +24,10 @@ export const loginUser = (email, pass) => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = (id) => async (dispatch) => {
   dispatch(startLoading());
   try {
-    await AuthService.logout();
+    await AuthService.logout(id);
     dispatch(logoutSuccess());
   } catch (e) {
     dispatch(logoutFailed(e.response.data.message));
@@ -42,7 +40,7 @@ export const validateUser = () => async (dispatch) => {
     const response = await AuthService.validateAuth();
     dispatch(refreshSuccess(response.data));
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 export const registerUser =

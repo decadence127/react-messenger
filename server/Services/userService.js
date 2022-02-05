@@ -37,7 +37,6 @@ class UserService {
 
   async login(email, password) {
     const user = await UserModel.findOne({ userEmail: email });
-    console.log(user);
     if (!user) {
       throw ApiError.BadRequest("User with such email does not exist.");
     }
@@ -45,11 +44,16 @@ class UserService {
     if (!isPasswordEqual) {
       throw ApiError.BadRequest("Password is incorrect.");
     }
+    if (user) {
+      await this.changeActivityStatus(user._id, true);
+    }
     const userData = {
       userId: user._id,
       userName: user.userName,
       userAge: user.userAge,
       userEmail: user.userEmail,
+      isBanned: user.isBanned,
+      isOnline: user.isOnline,
     };
 
     const tokenData = tokenService.generateTokens({ ...userData });
@@ -58,6 +62,9 @@ class UserService {
       ...tokenData,
       user: userData,
     };
+  }
+  async logout(id) {
+    await this.changeActivityStatus(id, false);
   }
   async getCertainUser(id) {
     const user = await UserModel.findOne({ _id: id });
@@ -86,6 +93,11 @@ class UserService {
     return {
       users: usersData,
     };
+  }
+  async changeActivityStatus(userId, bool) {
+    const user = await UserModel.findById(userId);
+    console.log(user, "called");
+    return await user.updateOne({ isOnline: bool });
   }
 }
 module.exports = new UserService();

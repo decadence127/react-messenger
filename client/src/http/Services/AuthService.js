@@ -12,8 +12,8 @@ export default class AuthService {
       name,
     });
   }
-  static async logout() {
-    return await api.post("user/logout");
+  static async logout(id) {
+    return await api.post("user/logout", { id });
   }
   static async validateAuth() {
     return await axios.get(`${process.env.REACT_APP_API_URL}/user/refresh`, {

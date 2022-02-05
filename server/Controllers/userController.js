@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const ApiError = require("../ExceptionHandler/ApiError");
 const userService = require("../Services/userService");
 const tokenService = require("../Services/tokenService");
+const { changeActivityStatus } = require("../Services/userService");
 class UserController {
   async registration(req, res, next) {
     try {
@@ -42,6 +43,8 @@ class UserController {
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
+      const { id } = req.body;
+      await userService.logout(id);
       await tokenService.removeToken(refreshToken);
       res.clearCookie("refreshToken");
       return res.status(200).json({ message: "You have been logged out" });
