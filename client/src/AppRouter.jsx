@@ -9,10 +9,10 @@ const AppRouter = () => {
   console.log(userData.isAuth)
   return (
     <Switch>
+      {PublicRoutes.map(({ path, component }) => (<Route key={path} path={path} component={component} exact />))}
       {userData.isAuth && AuthRoutes.map(({ path, component }) => (
         <Route key={path} path={path} component={component} exact />
       ))}
-      {PublicRoutes.map(({ path, component }) => (<Route key={path} path={path} component={component} exact />))}
       {userData.isAuth ? <Redirect to="/messages" /> : <Redirect to="/" />}
     </Switch>
   );

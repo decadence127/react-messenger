@@ -5,7 +5,7 @@ const initialState = {
   userData: {
     refreshToken: "",
     accessToken: "",
-    isAuth: false,
+    isAuth: !!localStorage.getItem("token"),
     user: {
       userName: "",
       userEmail: "",

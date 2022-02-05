@@ -31,11 +31,11 @@ export const PublicRoutes = [
     component: HomePage,
   },
   {
-    path: AUTH_ROUTE,
-    component: AuthPage,
-  },
-  {
     path: USERS_ROUTE,
     component: UsersPage,
+  },
+  {
+    path: AUTH_ROUTE,
+    component: AuthPage,
   },
 ];

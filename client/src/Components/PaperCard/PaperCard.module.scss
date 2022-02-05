@@ -12,13 +12,16 @@
   align-items: center;
   justify-content: space-around;
   margin: 3em 0 0 10em;
-  height: 24em;
+  height: 30em;
   & > form {
     display: flex;
     flex-flow: wrap column;
     align-items: center;
     justify-content: space-around;
     min-height: 13em;
+    & > * {
+      margin-bottom: 18px;
+    }
     & > input {
       @include rounded-border;
       border: none;

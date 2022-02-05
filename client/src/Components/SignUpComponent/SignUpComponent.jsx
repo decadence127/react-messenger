@@ -11,7 +11,7 @@ const SignUpComponent = () => {
   }
   return (
     <>
-      <h2>You are almost ready to hand with your friends! Just choose a strong password!</h2>
+      <h2>You are almost ready to hang with your friends! Just choose a strong password!</h2>
       <form onSubmit={clickHandler}>
         <input type="text" placeholder='Email address' required={true} />
         <input type="text" placeholder='Password' required={true} />
