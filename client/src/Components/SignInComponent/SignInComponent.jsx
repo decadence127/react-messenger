@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../CommonStyles/CommonStyles.module.scss'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../store/reducers/userSlice';
+import { loginUser } from "../../store/reducers/userActions";
 import Loading from '../Loading/Loading';
 import AlertBox from '../AlertBox/AlertBox';
 import { useEffect } from 'react';

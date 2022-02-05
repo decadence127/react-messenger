@@ -1,17 +1,14 @@
 import React from 'react';
 import Header from './Components/Header/Header';
 import AppRouter from './AppRouter';
-import { useDispatch, useSelector } from 'react-redux';
-import store from './store/store';
-import { userSlice, validateUser } from './store/reducers/userSlice';
+import { useDispatch } from 'react-redux';
+import { validateUser } from "./store/reducers/userActions";
 import { useEffect } from 'react';
 
 
 
 function App() {
   const dispatch = useDispatch();
-  const { userData, isLoading, errors } = useSelector(state => state.userReducer)
-
 
   useEffect(() => {
     if (localStorage.getItem('token')) {

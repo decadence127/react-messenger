@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import AuthService from "../../http/Services/AuthService";
 
 const initialState = {
   userData: {
@@ -37,6 +36,7 @@ export const userSlice = createSlice({
     logoutSuccess(state) {
       localStorage.removeItem("token");
       state.userData = initialState.userData;
+      state.userData.isAuth = false;
       state.isLoading = false;
     },
     logoutFailed(state, action) {
@@ -60,37 +60,4 @@ export const {
   refreshSuccess,
 } = userSlice.actions;
 
-export const loginUser = (email, pass) => async (dispatch) => {
-  dispatch(startLoading());
-  try {
-    const response = await AuthService.login(email, pass);
-    console.log(response);
-    dispatch(loginSuccess(response.data));
-  } catch (e) {
-    console.log(e);
-    dispatch(loginFailed(e.response.data.message));
-  }
-};
-
-export const logoutUser = () => async (dispatch) => {
-  dispatch(startLoading());
-  try {
-    const response = await AuthService.logout();
-    console.log(response);
-    dispatch(logoutSuccess());
-  } catch (e) {
-    console.log(e);
-    dispatch(logoutFailed(e.response.data.message));
-  }
-};
-
-export const validateUser = () => async (dispatch) => {
-  dispatch(startLoading());
-  try {
-    const response = await AuthService.validateAuth();
-    dispatch(refreshSuccess(response.data));
-  } catch (e) {
-    console.log(e);
-  }
-};
 export default userSlice.reducer;

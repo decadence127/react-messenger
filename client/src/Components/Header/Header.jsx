@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { HOME_ROUTE, AUTH_ROUTE, MESSAGES_ROUTE } from '../../routes/routeNames'
 import Searchbar from '../Searchbar/Searchbar';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from '../../store/reducers/userSlice';
+import { logoutUser } from "../../store/reducers/userActions";
 
 const Header = () => {
   const history = useHistory();
