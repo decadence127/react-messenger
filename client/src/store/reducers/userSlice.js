@@ -35,12 +35,18 @@ export const userSlice = createSlice({
       state.isLoading = false;
     },
     logoutSuccess(state) {
-      state.userData = initialState.userData;
       localStorage.removeItem("token");
+      state.userData = initialState.userData;
       state.isLoading = false;
     },
     logoutFailed(state, action) {
       state.errors.push(action.payload);
+      state.isLoading = false;
+    },
+    refreshSuccess(state, action) {
+      state.userData = action.payload;
+      state.userData.isAuth = true;
+      localStorage.setItem("token", state.userData.accessToken);
       state.isLoading = false;
     },
   },
@@ -51,17 +57,21 @@ export const {
   loginFailed,
   logoutFailed,
   logoutSuccess,
+  refreshSuccess,
 } = userSlice.actions;
 
 export const loginUser = (email, pass) => async (dispatch) => {
   dispatch(startLoading());
   try {
     const response = await AuthService.login(email, pass);
+    console.log(response);
     dispatch(loginSuccess(response.data));
   } catch (e) {
+    console.log(e);
     dispatch(loginFailed(e.response.data.message));
   }
 };
+
 export const logoutUser = () => async (dispatch) => {
   dispatch(startLoading());
   try {
@@ -71,6 +81,16 @@ export const logoutUser = () => async (dispatch) => {
   } catch (e) {
     console.log(e);
     dispatch(logoutFailed(e.response.data.message));
+  }
+};
+
+export const validateUser = () => async (dispatch) => {
+  dispatch(startLoading());
+  try {
+    const response = await AuthService.validateAuth();
+    dispatch(refreshSuccess(response.data));
+  } catch (e) {
+    console.log(e);
   }
 };
 export default userSlice.reducer;
