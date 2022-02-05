@@ -10,7 +10,6 @@ const MessagesPage = () => {
     const fetchData = async () => {
       const response = await api.get('/user/getUsers')
       setData(response.data.users)
-      console.log(response.data);
     }
     fetchData()
   }, [])

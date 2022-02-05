@@ -27,8 +27,8 @@ export const loginUser = (email, pass) => async (dispatch) => {
 export const logoutUser = (id) => async (dispatch) => {
   dispatch(startLoading());
   try {
-    await AuthService.logout(id);
     dispatch(logoutSuccess());
+    await AuthService.logout(id);
   } catch (e) {
     dispatch(logoutFailed(e.response.data.message));
   }

@@ -11,6 +11,11 @@ const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { userData } = useSelector(state => state.userReducer)
+
+  const logoutHandler = () => {
+    dispatch(logoutUser(userData.user.userId))
+    history.push(HOME_ROUTE)
+  }
   return (
     <>
       <header className={styles.header}>
@@ -22,7 +27,7 @@ const Header = () => {
           {
             userData.isAuth ? (
               <><button onClick={e => { history.push(MESSAGES_ROUTE) }}> Messages</button>
-                <button onClick={e => { dispatch(logoutUser(userData.user.userId)) }}> Log out</button></>) : (<>
+                <button onClick={logoutHandler}> Log out</button></>) : (<>
                   <button onClick={e => { history.push(HOME_ROUTE) }}> Home</button>
                   <button onClick={e => { history.push(AUTH_ROUTE) }}> Sign Up</button>
                 </>)

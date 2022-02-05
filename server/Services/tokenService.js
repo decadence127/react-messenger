@@ -37,7 +37,7 @@ class TokenService {
   }
   async findToken(refreshToken) {
     try {
-      return tokenModel.findOne({ refreshToken });
+      return await tokenModel.findOne({ refreshToken });
     } catch (e) {
       throw e;
     }
@@ -62,6 +62,7 @@ class TokenService {
     }
     const userData = this.validateRefreshToken(refreshToken);
     const token = await this.findToken(refreshToken);
+    console.log(token);
     if (!userData || !token) {
       throw ApiError.UnauthorizedError();
     }

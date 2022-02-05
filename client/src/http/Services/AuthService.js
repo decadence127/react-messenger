@@ -20,4 +20,7 @@ export default class AuthService {
       withCredentials: true,
     });
   }
+  static async changeActivityToOffline(id) {
+    return await api.post("user/changeActivity", { id });
+  }
 }

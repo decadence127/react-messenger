@@ -96,7 +96,6 @@ class UserService {
   }
   async changeActivityStatus(userId, bool) {
     const user = await UserModel.findById(userId);
-    console.log(user, "called");
     return await user.updateOne({ isOnline: bool });
   }
 }

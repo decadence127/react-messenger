@@ -35,11 +35,13 @@ export const userSlice = createSlice({
       state.userData = action.payload;
       state.userData.isAuth = true;
       localStorage.setItem("token", state.userData.accessToken);
+      localStorage.setItem("uid", state.userData.user.userId);
       state.isLoading = false;
     },
     logoutSuccess(state) {
       state.userData = initialState.userData;
       localStorage.removeItem("token");
+      localStorage.removeItem("uid");
       state.isLoading = false;
     },
     logoutFailed(state, action) {
@@ -50,6 +52,7 @@ export const userSlice = createSlice({
       state.userData = action.payload;
       state.userData.isAuth = true;
       localStorage.setItem("token", state.userData.accessToken);
+      localStorage.setItem("uid", state.userData.user.userId);
       state.isLoading = false;
     },
     registrationFailed(state, action) {

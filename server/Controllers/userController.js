@@ -52,6 +52,11 @@ class UserController {
       next(error);
     }
   }
+  async changeActivity(req, res) {
+    const { id } = req.body;
+    console.log(id);
+    await userService.logout(id);
+  }
   async validate(req, res, next) {
     try {
     } catch (error) {
@@ -62,7 +67,7 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const userData = await tokenService.refresh(refreshToken);
-
+      await userService.changeActivityStatus(userData.user.userId, true);
       res.cookie("refreshToken", userData.refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
