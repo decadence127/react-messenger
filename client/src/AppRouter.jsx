@@ -6,7 +6,6 @@ import { AuthRoutes, PublicRoutes } from './routes/pageStore'
 
 const AppRouter = () => {
   const { userData } = useSelector(state => state.userReducer)
-  console.log(userData.isAuth)
   return (
     <Switch>
       {PublicRoutes.map(({ path, component }) => (<Route key={path} path={path} component={component} exact />))}

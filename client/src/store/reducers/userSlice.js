@@ -13,6 +13,7 @@ const initialState = {
   },
   isLoading: false,
   errors: [],
+  status: [],
 };
 
 export const userSlice = createSlice({
@@ -34,9 +35,8 @@ export const userSlice = createSlice({
       state.isLoading = false;
     },
     logoutSuccess(state) {
-      localStorage.removeItem("token");
       state.userData = initialState.userData;
-      state.userData.isAuth = false;
+      localStorage.removeItem("token");
       state.isLoading = false;
     },
     logoutFailed(state, action) {
@@ -49,6 +49,20 @@ export const userSlice = createSlice({
       localStorage.setItem("token", state.userData.accessToken);
       state.isLoading = false;
     },
+    registrationFailed(state, action) {
+      Array.isArray(action.payload)
+        ? (state.errors = action.payload)
+        : state.errors.push(action.payload);
+      state.isLoading = false;
+    },
+    registrationSuccess(state, action) {
+      state.status.push(action.payload);
+      state.isLoading = false;
+    },
+    cleanInfo(state) {
+      state.errors = [];
+      state.status = [];
+    },
   },
 });
 export const {
@@ -58,6 +72,9 @@ export const {
   logoutFailed,
   logoutSuccess,
   refreshSuccess,
+  registrationFailed,
+  registrationSuccess,
+  cleanInfo,
 } = userSlice.actions;
 
 export default userSlice.reducer;

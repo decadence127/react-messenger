@@ -8,7 +8,7 @@ class UserService {
   async registration(email, password, name, age) {
     const candidate = await UserModel.findOne({ userEmail: email });
     if (candidate) {
-      throw ApiError.BadRequest(`User with email: ${email} already exists]`);
+      throw ApiError.BadRequest(`User with email: ${email} already exists`);
     }
     if (!email || !password) {
       throw ApiError.BadRequest(`Dont leave empty password and email fields`);

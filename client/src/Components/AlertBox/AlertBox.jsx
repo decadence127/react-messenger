@@ -5,7 +5,7 @@ import styles from './AlertBox.module.scss';
 const AlertBox = (props) => {
   return (
     <div className={styles[props.alertType]}>
-      {props.message.map((msg) => (<p key={msg}>{msg}</p>))}
+      {props.message.map((msg, index) => (<p key={index}>{msg.param ? `${msg.param}: ${msg.msg}` : msg}</p>))}
     </div>
   );
 };
