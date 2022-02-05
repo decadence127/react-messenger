@@ -54,8 +54,9 @@ class UserController {
   }
   async changeActivity(req, res) {
     const { id } = req.body;
-    console.log(id);
-    await userService.logout(id);
+    if (id) {
+      await userService.logout(id);
+    }
   }
   async validate(req, res, next) {
     try {
